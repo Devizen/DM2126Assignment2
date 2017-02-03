@@ -39,12 +39,12 @@ int main()
     ll.push_front(1);
     ll.push_back(1);
     cout << ll.size() << endl;
-    cout << ll.pop_back() << endl;
-    cout << ll.pop_front() << endl;
-    cout << ll.pop_back() << endl;
-    ll.insert_at(2, 10);
-    cout << ll.pop_at(0) << endl;
-    cout << endl;
+    //cout << ll.pop_back() << endl;
+    //cout << ll.pop_front() << endl;
+    //cout << ll.pop_back() << endl;
+    //ll.insert_at(2, 10);
+    //cout << ll.pop_at(0) << endl;
+    //cout << endl;
 
     // part 2
     cout << "Part 2" << endl;
