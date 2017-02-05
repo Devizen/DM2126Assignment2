@@ -631,7 +631,8 @@ bool Brackets(const string& input)
             }
         }
 
-        if (bracket->size() != 0) // if not 0 means not balanced
+        //If there are still leftover Nodes,
+        if (bracket->size() != 0)
         {
             //Delete unused container.
             delete bracket;
