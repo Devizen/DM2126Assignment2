@@ -31,181 +31,377 @@ using std::queue;
 //*******************************************************************//
 // Linked list stuff
 //*******************************************************************//
-LinkedList::LinkedList() 
+LinkedList::LinkedList()
 {
-    head_ = new Node();
+    //Initialize head_ to NULL.
+    head_ = NULL;
 }
 
 LinkedList::~LinkedList()
-{ 
+{
 }
 
 void LinkedList::push_front(int data)
 {
+    //Create a new Node
     Node* newNode = new Node(data);
-    if (head_->next == NULL)
+
+    //If head_ is 0,
+    if (!head_)
     {
-        head_->next = newNode;
+        //Assign head to newNode.
+        head_ = newNode;
+        return;
     }
-    else
-    {
-        newNode->next = head_->next;
-        head_->next = newNode;
-    }
+
+    //Point the newNode to head_
+    newNode->next = head_;
+
+    //Assign head_ to newNode so head_ is at the front.
+    head_ = newNode;
+
 }
 
 void LinkedList::push_back(int data)
 {
+    //Create a new Node.
     Node* newNode = new Node(data);
-    Node* temp = head_->next;
+    Node* curr = head_;
+    Node* prev = head_;
 
-    if (head_->next == NULL)
+    //If head_ is 0,
+    if (!head_)
     {
-        push_front(data);
+        //Assign head_ to newNode.
+        head_ = newNode;
+        return;
     }
-    else
-    {
-        while (temp->next != NULL)
-        {
-            temp = temp->next;
-        }
 
-        temp->next = newNode;
+    //While curr is not 0,
+    while (curr)
+    {
+        //Assign prev as curr so that it is one step behind curr->next.
+        prev = curr;
+
+        //Move curr to the new Node.
+        curr = curr->next;
     }
+
+    //Assign the empty curr to newNode.
+    curr = newNode;
+
+    //Point the previous node to current.
+    prev->next = curr;
 }
 
 int LinkedList::pop_front()
 {
-    if (head_->next == NULL)
+    //Create a new Node and assign it to head_.
+    Node* curr = head_;
+
+    //Variable to store the data.
+    int data = 0;
+
+    //If there is not Node, return 0.
+    if (!head_)
     {
         return 0;
     }
-    else
-    {
-        return head_->next->data;
-    }
+
+    //Assign the data of first Node to data.
+    data = curr->data;
+
+    //Assign head to the next Node.
+    head_ = curr->next;
+
+    //Delete unused node.
+    delete curr;
+
+    return data;
+
 }
 
 int LinkedList::pop_back()
-{    
-    Node* nextNext = new Node();
+{
+    //Create two nodes, one for previous Node and one for current Node.
+    Node* prev = head_;
+    Node* curr = head_;
 
-    nextNext = head_->next;
-    if (head_->next == NULL)
+    //Variable to store data.
+    int data = 0;
+
+    //If there is no Node, return 0.
+    if (!head_)
     {
         return 0;
     }
-    else
+
+    //While the next Node of curr is not empty,
+    while (curr->next)
     {
-        while (nextNext->next != NULL)
-        {
-            nextNext = nextNext->next;
-            head_ = head_->next;
-        }
-        return head_->data;
+        //Assign prev to curr so it is one step behind.
+        prev = curr;
+
+        //Assign curr to the next Node.
+        curr = curr->next;
     }
+
+    //Assign data to curr's data when curr's next Node is empty.
+    data = curr->data;
+
+    //Delete unused Node.
+    delete curr;
+
+    //Assign the next Node of prev to be NULL.
+    prev->next = NULL;
+
+    return data;
 }
 
 void LinkedList::insert_at(int pos, int data)
-{    
+{
+    //Create a new Node for inserting, prev for previous Node and curr for current Node.
+    Node* newNode = new Node(data);
+    Node* prev = head_;
+    Node* curr = head_;
+
+    //If pos is less than 0; negative number,
     if (pos < 0)
     {
+        //Insert the node to the front.
         push_front(data);
     }
-    else if (pos > size())
+
+    //If pos is greater than LinkedList size,
+    else if (pos > ((int)size() - 1))
     {
+        //Add node to the back.
         push_back(data);
     }
+
     else
     {
-        Node* newNode = new Node();
-        newNode->data = data;
-
+        //Move curr to the position for inserting.
         for (int i = 0; i < pos; i++)
         {
-            head_ = head_->next;
+            //Assign prev to curr so it is one step behind curr.
+            prev = curr;
+
+            //Assign curr to the next Node.
+            curr = curr->next;
         }
-        if (head_ == NULL)
-        {
-            head_->data = data;
-        }
-        else
-        {
-            push_back(data);
-        }
+
+        //Assign the new Node next Node to curr.
+        newNode->next = curr;
+
+        //Assign the prev next Node to the new Node.
+        prev->next = newNode;
     }
+
 }
 
 int LinkedList::pop_at(int pos)
 {
-    int position = pos;
-    if (pos < 0)
+    //Create two nodes, one for previous Node and one for current Node.
+    Node* prev = head_;
+    Node* curr = head_;
+
+    //Variable for storing data.
+    int data = 0;
+
+    //If position is negative or 0,
+    if (pos < 0 || pos == 0)
     {
-        position = 0;
+        //Pop the front.
+        return pop_front();
     }
-    if (pos == 0)
+
+    //If position is greater than LinkedList,
+    else if (pos > ((int)size() - 1))
     {
-        pop_front();
+        //Return 0.
+        return 0;
     }
+
     else
     {
-        for (unsigned i = 0; i < position; i++)
+        //Move curr to position for popping.
+        for (int i = 0; i < pos; i++)
         {
-            head_ = head_->next;
+            //Assign prev to curr so it is one step behind.
+            prev = curr;
+
+            //Assign curr to the next Node.
+            curr = curr->next;
         }
-        if (head_ == NULL)
-        {
-            return 0;
-        }
-        else
-        {
-            return head_->data;
-            delete head_;
-        }
+
+        //curr's data to data variable.
+        data = curr->data;
+
+        //Assign the curr pointing to next Node to prev pointing to next Node.
+        prev->next = curr->next;
+
+        //Delete unused Node.
+        delete curr;
+
+        //Return data.
+        return data;
     }
 }
 
 size_t LinkedList::size()
 {
-    unsigned count = 1;
-    if (head_->next == NULL)
+    //Create a Node and assign it as the head_.
+    Node *curr = head_;
+
+    //Count variable for storing how many Nodes in LinkedList.
+    int count = 0;
+
+    //If there is no Node,
+    if (!head_)
     {
+        //Return 0.
         return 0;
     }
-    else
+    
+    //While curr is not empty,
+    while (curr)
     {
-        if (head_->next != NULL)
-        {
-            count++;
-            head_ = head_->next;
-        }
+        //Add 1 to count.
+        count++;
+
+        //Assign curr to next Node.
+        curr = curr->next;
     }
-    return count;
+
+    //Return total count.
+    return (size_t)count;
+
 }
+
 
 //*******************************************************************//
 // Queue stuff
 //*******************************************************************//
 Queue::Queue() 
 {
+    //Initialize front_ and back_ to NULL.
+    front_ = NULL;
+    back_ = NULL;
 }
 
 Queue::~Queue()
 {   
+
 }
 
 void Queue::enqueue(int data)
 {   
+    //Create new Node for enqueuing, a node for previous and current. 
+    Node* newNode = new Node(data);
+    Node* prev = front_;
+    Node* curr = front_;
+   
+    //If front_ and back_ are empty,
+    if (!front_ && !back_)
+    {
+        //Assign both front_ and back_ to the new Node.
+        front_ = newNode;
+        back_ = front_;
+        return;
+    }
+
+    else
+    {
+        //While curr is not empty,
+        while (curr)
+        {
+            //Assign prev to curr so that it is one step behind.
+            prev = curr;
+
+            //Assign curr to the next Node.
+            curr = curr->next;
+        }
+
+        //Assign curr to new Node when it reaches the end.
+        curr = newNode;
+
+        //Point prev to curr.
+        prev->next = curr;
+
+        //Assign back_ to curr as it is at the end of list.
+        back_ = curr;
+    }
+
 }
 
 int Queue::dequeue()
 {
-    return 0;
+    //Create curr and assign it to front_.
+    Node* curr = front_;
+
+    //Variable for storing data.
+    int data = 0;
+
+    //If there is no node,
+    if (!front_ && !back_)
+    {
+        //Return 0.
+        return 0;
+    }
+
+    //Assign the data at the front to data variable.
+    data = curr->data;
+
+    //If the front_ is the same as back_,
+    if (front_ == back_)
+    {
+        //Assign the next Node to back_.
+        back_ = back_->next;
+
+        //Assign front_ to back_.
+        front_ = back_;
+    }
+    else
+    {
+        //Assign front_ to the next Node.
+        front_ = front_->next;
+    }
+
+    //Delete unused node.
+    delete curr;
+
+    //Return data.
+    return data;
 }
 
 size_t Queue::size()
 {
-    return 0;
+    //Create curr and assign it to front_.
+    Node *curr = front_;
+
+    //count variable for storing how many Nodes in list.
+    int count = 0;
+
+    //If there is no Node,
+    if (!front_ && !back_)
+    {
+        //Return 0.
+        return 0;
+    }
+    
+    //While curr is not empty,
+    while (curr)
+    {
+        //Add count.
+        count++;
+
+        //Assign curr to next Node.
+        curr = curr->next;
+    }
+
+    //Return count.
+    return (size_t)count;
 }
 
 //*******************************************************************//
@@ -213,7 +409,8 @@ size_t Queue::size()
 //*******************************************************************//
 Stack::Stack()
 {
-
+    //Initialize top_ to NULL.
+    top_ = NULL;
 }
 
 Stack::~Stack()
@@ -222,27 +419,252 @@ Stack::~Stack()
 
 void Stack::push(int data)
 {
+    //Create new Node for adding.
+    Node* newNode = new Node(data);
+
+    //If there is no node,
+    if (!top_)
+    {
+        //Assign top_ to newNode.
+        top_ = newNode;
+    }
+    else
+    {
+        //Point newNode to top_,
+        newNode->next = top_;
+
+        //Assign top_ to the newNode.
+        top_ = newNode;
+    }
 }
 
 int Stack::pop()
 {
-    return 0;
+    //Create a Node to track the current position.
+    Node *curr = top_;
+
+    //Data variable for storing the data.
+    int data = 0;
+
+    //If there is no Node,
+    if (!top_)
+    {
+        //Return 0.
+        return 0;
+    }
+    else
+    {
+        //Assign the curr's data to data variable.
+        data = curr->data;
+
+        //Assign top_ to the next Node.
+        top_ = curr->next;
+
+        //Delete unused Node.
+        delete curr;
+
+        //Return data.
+        return data;
+    }
 }
 
 size_t Stack::size()
 {
-    return 0;
+    //Create a Node and assign it to top_.
+    Node* curr_ = top_;
+
+    //count variable for storing how many Nodes in Stack.
+    int count = 0;
+
+    //If there is no Node in stack,
+    if (!top_)
+    {
+        //Return 0.
+        return 0;
+    }
+    else
+    {
+        //While curr_ is not empty,
+        while (curr_)
+        {
+            //Add count.
+            count++;
+            
+            //Assign curr_ to next Node.
+            curr_ = curr_->next;
+        }
+    }
+
+    //Return count.
+    return (size_t)count;
 }
-
-
 
 // Balanced parenthesis
 bool Brackets(const string& input)
 {
-    return true;
+    //Use Stack as container.
+    Stack* bracket = new Stack();
+
+    //type variable to store the type of brackets.
+    char type = ' ';
+
+    //Boolean to keep track of answer.
+    bool answer = false;
+
+    //If string is empty,
+    if (!input.size())
+    {
+        //Return false.
+        return false;
+    }
+    else
+    {
+        //Loop until end of string.
+        for (int i = 0; i < (int)input.size(); i++)
+        {
+            //Assign type to the character in string.
+            type = input[i];
+            
+            //Check if the character is the same as type.
+            //If the character is an open bracket, push it into Stack.
+            //If it is a closed bracket, check whether popping it is the same as the last pushed character.
+            //Keep looping if the checks are true and exit the loop when it doesn't match.
+      
+            if (type == '(')
+            {
+                bracket->push(type);
+                continue;
+            }
+
+            if (type == ')')
+            {
+ 
+                    if (bracket->pop() == '(')
+                    {
+                        answer = true;
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                        break;
+                    }
+                
+            }
+
+            if (type == '{')
+            {
+                bracket->push(type);
+                continue;
+            }
+
+            if(type == '}')
+            {
+              
+                    if (bracket->pop() == '{')
+                    {
+                        answer = true;
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                        break;
+                    }
+                
+            }
+
+            if(type == '[')
+            {
+                bracket->push(type);
+                continue;
+            }
+
+            if(type == ']')
+            {
+            
+                    if (bracket->pop() == '[')
+                    {
+                        answer = true;
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                        break;
+                    }
+                
+            }
+
+            if(type == '<')
+            {
+                bracket->push(type);
+                continue;
+            }
+
+            if(type == '>')
+            {
+         
+                    if (bracket->pop() == '<')
+                    {
+                        answer = true;
+                        continue;
+                    }
+                    else
+                    {
+                        return false;
+                        break;
+                    }
+                
+            }
+            else
+            {
+                return false;
+                break;
+            }
+        }
+
+        //Delete unused container.
+        delete bracket;
+
+        //Return answer.
+        return answer;
+    }
+
 }
 
 // Query machine, hits
 void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>& results)
 {
+    //Use Stack as container.
+    Stack* container = new Stack();
+
+    //count Variable to store how many times the number appeared.
+    int count = 0;
+
+    //Push all the characters into Stack.
+    //If the next character is the same as what is being query, add 1 to count.
+    //Push back the count to results vector after checking for one query.
+    //Keep repeating until all the queries are checked.
+    for (int i = 0; i < (int)queries.size(); i++)
+    {
+        count = 0;
+
+        for (int j = 0; j < (int)data.size(); j++)
+        {
+            container->push(data[j]);
+        }
+
+        for (int j = 0; j < (int)data.size(); j++)
+        {
+            if (container->pop() == queries[i])
+            {
+                count++;
+            }
+        }
+        results.push_back(count);
+    }
+
+    //Delete unused container.
+    delete container;
 }

@@ -37,20 +37,41 @@ int main()
     cout << "Part 1" << endl;
     LinkedList ll;
     ll.push_front(1);
-    ll.push_back(1);
-    cout << ll.size() << endl;
-    //cout << ll.pop_back() << endl;
-    //cout << ll.pop_front() << endl;
-    //cout << ll.pop_back() << endl;
-    //ll.insert_at(2, 10);
-    //cout << ll.pop_at(0) << endl;
-    //cout << endl;
+    ll.push_front(2);
+    ll.push_front(3);
+    //ll.insert_at(1, 7); //3721
+    //ll.push_back(4);
+    //ll.push_back(3);
+    //cout << ll.size() << endl;
+    cout << ll.pop_back() << endl;
+    cout << ll.pop_back() << endl;
+    cout << ll.pop_back() << endl;
+    //cout << ll.pop_front() << endl; // 3214 214
+    //cout << ll.pop_front() << endl; // 14
+    //cout << ll.pop_back() << endl; // 1
+    //cout << ll.pop_back() << endl; // Nothing
+    ////ll.insert_at(2, 10);
+    //cout << ll.pop_at(1) << endl;
+    //ll.push_front(1);
+    //int poploc[3];
+    //poploc[0] = 0;
+    //poploc[1] = 1;
+    //poploc[2] = 2;
+
+    //for (unsigned i = 0; i <= 2; i++)
+    //{
+    //    cout << ll.pop_at(poploc[i]) << endl;
+    //}
+
+    cout << endl;
 
     // part 2
     cout << "Part 2" << endl;
     Queue q;
     q.enqueue(20);
-    q.enqueue(42);
+    q.enqueue(30);
+    //q.enqueue(42);
+    //q.enqueue(50);
     cout << q.dequeue() << endl;
     cout << q.size() << endl;
     cout << endl;
@@ -66,15 +87,28 @@ int main()
 
     // part 4
     cout << "Part 4" << endl;
-    const char* input = "<>";
+    const char* input = "()";
+    const char* input1 = "(<)>";
+    const char* input2 = "(<))";
+    const char* input3 = "{<[()]>}";
+    const char* input4 = "()()[]<>{{[{}]}}";
+    const int input5 = 500;
+
     cout << Brackets(input) << endl;
+    cout << Brackets(input1) << endl;
+    cout << Brackets(input2) << endl;
+    cout << Brackets(input3) << endl;
+    cout << Brackets(input4) << endl;
+    cout << Brackets(std::to_string(input5)) << endl;
+
     cout << endl;
 
 
     // part 5
     cout << "Part 5" << endl;
     int dataArray[] = {1, 4, 5, 6, 9, 1, 1, 4};
-    int queryArray[] = {1, 2, 3};
+    //int queryArray[] = {1, 2, 3};
+    int queryArray[] = { 1, 2, 4};
 
     vector<int> data(dataArray, dataArray + sizeof(dataArray) / sizeof(dataArray[0]));
     vector<int> queries(queryArray, queryArray + sizeof(queryArray) / sizeof(queryArray[0]));
