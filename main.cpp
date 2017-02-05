@@ -36,28 +36,32 @@ int main()
     // part 1
     cout << "Part 1" << endl;
     LinkedList ll;
-    //ll.push_front(1);
-    //ll.push_front(2);
-    //ll.push_front(3); //321
+    ll.push_front(1);
+    ll.push_front(2);
+    ll.push_front(3); //321
 
+    ll.push_back(3);
+    ll.push_back(1);
+    ll.insert_at(0, 2);
+    ll.push_back(5);
+    ll.push_back(6);//321456
+    ll.insert_at(1, 7); //3721
     ll.push_back(4);
-    //ll.push_back(5);
-    //ll.push_back(6);//321456
-    //ll.insert_at(1, 7); //3721
-    //ll.push_back(4);
-    //ll.push_back(3);
-    //cout << "Total Size: " << ll.size() << endl;
-    //cout << "Pop Back: " << ll.pop_back() << endl;
-    //cout << "First Size: " << ll.size() << endl;
-    ////cout << "Pop Front : " << ll.pop_front() << endl;
-    //cout << "Pop Back: " << ll.pop_back() << endl;
-    //cout << "Second Size: " << ll.size() << endl;
+    ll.push_back(3);
+    cout << "Total Size: " << ll.size() << endl;
+    cout << "Pop Back: " << ll.pop_back() << endl;
+    cout << "First Size: " << ll.size() << endl;
+    cout << "Pop Front : " << ll.pop_front() << endl;
+    cout << "Pop Back: " << ll.pop_back() << endl;
+    cout << "Second Size: " << ll.size() << endl;
+    cout << "Pop Back: " << ll.pop_back() << endl;
+    cout << "Pop Back: " << ll.pop_back() << endl;
     cout << "Pop Back: " << ll.pop_back() << endl;
     cout << "Third Size: " << ll.size() << endl;
 
-    //cout << ll.pop_front() << endl; // 3214 214
-    //cout << ll.pop_front() << endl; // 14
-    //cout << ll.pop_back() << endl; // 1
+    cout << ll.pop_front() << endl; // 3214 214
+    cout << ll.pop_front() << endl; // 14
+    cout << ll.pop_back() << endl; // 1
     //cout << ll.pop_back() << endl; // Nothing
     ////ll.insert_at(2, 10);
     //cout << ll.pop_at(1) << endl;
@@ -88,8 +92,11 @@ int main()
     // part 3
     cout << "Part 3" << endl;
     Stack s;
-    s.push(46);
-    s.push(8);
+    //s.push(46);
+    s.push('a');
+    cout << s.size() << endl;
+    cout << s.pop() << endl;
+    cout << s.size() << endl;
     cout << s.pop() << endl;
     cout << s.size() << endl;
     cout << endl;
@@ -102,13 +109,15 @@ int main()
     const char* input3 = "{<[()]>}";
     const char* input4 = "()()[]<>{{[{}]}}";
     const int input5 = 500;
+    const char* input6 = " ()";
 
-    cout << Brackets(input) << endl;
-    cout << Brackets(input1) << endl;
-    //cout << Brackets(input2) << endl;
-    //cout << Brackets(input3) << endl;
-    //cout << Brackets(input4) << endl;
-    //cout << Brackets(std::to_string(input5)) << endl;
+    //cout << "Input TRUE: " << Brackets(input) << endl;
+    cout << "Input 1 FALSE: " << Brackets(input1) << endl;
+    cout << "Input 2 FALSE: " << Brackets(input2) << endl;
+    cout << "Input 3 TRUE: " << Brackets(input3) << endl;
+    cout << "Input 4 TRUE: " << Brackets(input4) << endl;
+    cout << "Input 5 FALSE: " << Brackets(std::to_string(input5)) << endl;
+    cout << "Input 6 FALSE: " << Brackets(input6) << endl;
 
     cout << endl;
 
@@ -130,6 +139,7 @@ int main()
     cout << endl;
 
     cout << "Time taken to run the above code is " << timeTaken(start) << "ms" << endl;
+
 
     return 0;
 }

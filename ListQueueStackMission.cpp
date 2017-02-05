@@ -60,6 +60,9 @@ void LinkedList::push_front(int data)
     //Assign head_ to newNode so head_ is at the front.
     head_ = newNode;
 
+    //newNode = new Node;
+    //delete newNode;
+    //newNode = NULL;
 }
 
 void LinkedList::push_back(int data)
@@ -116,6 +119,7 @@ int LinkedList::pop_front()
 
     //Delete unused node.
     delete curr;
+    curr = NULL;
 
     return data;
 
@@ -141,7 +145,7 @@ int LinkedList::pop_back()
     {//While the next Node of curr is not empty,
         while (curr->next != NULL)
         {
-            ////Assign prev to curr so it is one step behind.
+            //Assign prev to curr so it is one step behind.
             prev = curr;
 
             //Assign curr to the next Node.
@@ -153,10 +157,12 @@ int LinkedList::pop_back()
 
         //Delete unused Node.
         delete curr;
+        curr = NULL;
 
         //Assign the next Node of prev to be NULL.
         prev->next = NULL;
     }
+
     else
     {
         //Assign data with curr data.
@@ -178,24 +184,25 @@ void LinkedList::insert_at(int pos, int data)
     Node* prev = head_;
     Node* curr = head_;
 
-    //If pos is less than 0; negative number,
-    if (pos < 0)
+    //If pos is less than 0; negative number, or 0,
+    if (pos < 0 || pos == 0)
     {
         //Insert the node to the front.
         push_front(data);
     }
 
     //If pos is greater than LinkedList size,
-    else if (pos > ((int)size() - 1))
+    else if (pos > (int)size())
     {
         //Add node to the back.
         push_back(data);
     }
 
+
     else
     {
         //Move curr to the position for inserting.
-        for (int i = 0; i < pos; i++)
+        for (int i = 0; i < (int)pos; i++)
         {
             //Assign prev to curr so it is one step behind curr.
             prev = curr;
@@ -256,6 +263,7 @@ int LinkedList::pop_at(int pos)
 
         //Delete unused Node.
         delete curr;
+        curr = NULL;
 
         //Return data.
         return data;
@@ -384,6 +392,7 @@ int Queue::dequeue()
 
     //Delete unused node.
     delete curr;
+    curr = NULL;
 
     //Return data.
     return data;
@@ -476,6 +485,7 @@ int Stack::pop()
 
         //Delete unused Node.
         delete curr;
+        curr = NULL;
 
         //Return data.
         return data;
@@ -543,103 +553,89 @@ bool Brackets(const string& input)
             //If the character is an open bracket, push it into Stack.
             //If it is a closed bracket, check whether popping it is the same as the last pushed character.
             //Keep looping if the checks are true and exit the loop when it doesn't match.
-      
-            if (type == '(')
+            //const char* input1 = "(<)>";
+            if (type == '(' || 
+                type == '{' ||
+                type == '[' ||
+                type == '<')
             {
                 bracket->push(type);
-                continue;
+
             }
 
-            if (type == ')')
+            else if (type == ')')
             {
  
-                    if (bracket->pop() == '(')
-                    {
-                        answer = true;
-                        continue;
-                    }
-                    else
-                    {
-                        return false;
-                        break;
-                    }
+                if (bracket->pop() == '(')
+                {
+                    answer = true;
+          
+                }
+                else
+                {
+                    return false;
+    
+                }
                 
             }
 
-            if (type == '{')
-            {
-                bracket->push(type);
-                continue;
-            }
-
-            if(type == '}')
+            else if(type == '}')
             {
               
-                    if (bracket->pop() == '{')
-                    {
-                        answer = true;
-                        continue;
-                    }
-                    else
-                    {
-                        return false;
-                        break;
-                    }
+                if (bracket->pop() == '{')
+                {
+                    answer = true;
+           
+                }
+                else
+                {
+                    return false;
+
+                }
                 
             }
 
-            if(type == '[')
-            {
-                bracket->push(type);
-                continue;
-            }
-
-            if(type == ']')
+            else if(type == ']')
             {
             
-                    if (bracket->pop() == '[')
-                    {
-                        answer = true;
-                        continue;
-                    }
-                    else
-                    {
-                        return false;
-                        break;
-                    }
+                if (bracket->pop() == '[')
+                {
+                    answer = true;
+      
+                }
+                else
+                {
+                    return false;
+
+                }
                 
             }
 
-            if(type == '<')
-            {
-                bracket->push(type);
-                continue;
-            }
-
-            if(type == '>')
+            else if(type == '>')
             {
          
-                    if (bracket->pop() == '<')
-                    {
-                        answer = true;
-                        continue;
-                    }
-                    else
-                    {
-                        return false;
-                        break;
-                    }
+                if (bracket->pop() == '<')
+                {
+                    answer = true;
+
+                }
+                else
+                {
+                    return false;
+
+                }
                 
             }
             else
             {
                 return false;
-                break;
+
             }
         }
 
         //Delete unused container.
         delete bracket;
+        bracket = NULL;
 
         //Return answer.
         return answer;
@@ -681,4 +677,5 @@ void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>&
 
     //Delete unused container.
     delete container;
+    container = NULL;
 }
