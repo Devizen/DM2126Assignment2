@@ -126,6 +126,7 @@ int LinkedList::pop_back()
     //Create two nodes, one for previous Node and one for current Node.
     Node* prev = head_;
     Node* curr = head_;
+    //Node* next = head_;
 
     //Variable to store data.
     int data = 0;
@@ -136,24 +137,36 @@ int LinkedList::pop_back()
         return 0;
     }
 
-    //While the next Node of curr is not empty,
-    while (curr->next)
-    {
-        //Assign prev to curr so it is one step behind.
-        prev = curr;
+    if (size() > 1)
+    {//While the next Node of curr is not empty,
+        while (curr->next != NULL)
+        {
+            ////Assign prev to curr so it is one step behind.
+            prev = curr;
 
-        //Assign curr to the next Node.
-        curr = curr->next;
+            //Assign curr to the next Node.
+            curr = curr->next;
+        }
+
+        //Assign data to curr's data when curr's next Node is empty.
+        data = curr->data;
+
+        //Delete unused Node.
+        delete curr;
+
+        //Assign the next Node of prev to be NULL.
+        prev->next = NULL;
     }
-
-    //Assign data to curr's data when curr's next Node is empty.
-    data = curr->data;
-
-    //Delete unused Node.
-    delete curr;
-
-    //Assign the next Node of prev to be NULL.
-    prev->next = NULL;
+    else
+    {
+        //Assign data with curr data.
+        data = curr->data;
+        delete curr;
+        curr = NULL;
+        //Assign curr to empty memory.
+        curr = prev->next;
+        head_ = NULL;
+    }
 
     return data;
 }
@@ -252,7 +265,7 @@ int LinkedList::pop_at(int pos)
 size_t LinkedList::size()
 {
     //Create a Node and assign it as the head_.
-    Node *curr = head_;
+    Node *head = head_;
 
     //Count variable for storing how many Nodes in LinkedList.
     int count = 0;
@@ -264,15 +277,16 @@ size_t LinkedList::size()
         return 0;
     }
     
-    //While curr is not empty,
-    while (curr)
+    //While head_ is not empty,
+    while (head_)
     {
         //Add 1 to count.
         count++;
 
         //Assign curr to next Node.
-        curr = curr->next;
+        head_ = head_->next;
     }
+    head_ = head;
 
     //Return total count.
     return (size_t)count;

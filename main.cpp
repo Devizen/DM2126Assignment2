@@ -36,16 +36,25 @@ int main()
     // part 1
     cout << "Part 1" << endl;
     LinkedList ll;
-    ll.push_front(1);
-    ll.push_front(2);
-    ll.push_front(3);
+    //ll.push_front(1);
+    //ll.push_front(2);
+    //ll.push_front(3); //321
+
+    ll.push_back(4);
+    //ll.push_back(5);
+    //ll.push_back(6);//321456
     //ll.insert_at(1, 7); //3721
     //ll.push_back(4);
     //ll.push_back(3);
-    //cout << ll.size() << endl;
-    cout << ll.pop_back() << endl;
-    cout << ll.pop_back() << endl;
-    cout << ll.pop_back() << endl;
+    //cout << "Total Size: " << ll.size() << endl;
+    //cout << "Pop Back: " << ll.pop_back() << endl;
+    //cout << "First Size: " << ll.size() << endl;
+    ////cout << "Pop Front : " << ll.pop_front() << endl;
+    //cout << "Pop Back: " << ll.pop_back() << endl;
+    //cout << "Second Size: " << ll.size() << endl;
+    cout << "Pop Back: " << ll.pop_back() << endl;
+    cout << "Third Size: " << ll.size() << endl;
+
     //cout << ll.pop_front() << endl; // 3214 214
     //cout << ll.pop_front() << endl; // 14
     //cout << ll.pop_back() << endl; // 1
@@ -96,10 +105,10 @@ int main()
 
     cout << Brackets(input) << endl;
     cout << Brackets(input1) << endl;
-    cout << Brackets(input2) << endl;
-    cout << Brackets(input3) << endl;
-    cout << Brackets(input4) << endl;
-    cout << Brackets(std::to_string(input5)) << endl;
+    //cout << Brackets(input2) << endl;
+    //cout << Brackets(input3) << endl;
+    //cout << Brackets(input4) << endl;
+    //cout << Brackets(std::to_string(input5)) << endl;
 
     cout << endl;
 
