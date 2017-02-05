@@ -39,6 +39,10 @@ LinkedList::LinkedList()
 
 LinkedList::~LinkedList()
 {
+    while ((int)size() != 0)
+    {
+        pop_back();
+    }
 }
 
 void LinkedList::push_front(int data)
@@ -59,10 +63,6 @@ void LinkedList::push_front(int data)
 
     //Assign head_ to newNode so head_ is at the front.
     head_ = newNode;
-
-    //newNode = new Node;
-    //delete newNode;
-    //newNode = NULL;
 }
 
 void LinkedList::push_back(int data)
@@ -314,7 +314,10 @@ Queue::Queue()
 
 Queue::~Queue()
 {   
-
+    while ((int)size() != 0)
+    {
+        dequeue();
+    }
 }
 
 void Queue::enqueue(int data)
@@ -438,6 +441,10 @@ Stack::Stack()
 
 Stack::~Stack()
 {
+    while ((int)size() != 0)
+    {
+        pop();
+    }
 }
 
 void Stack::push(int data)
@@ -523,7 +530,7 @@ size_t Stack::size()
     return (size_t)count;
 }
 
-// Balanced parenthesis
+//Balanced parenthesis
 bool Brackets(const string& input)
 {
     //Use Stack as container.
@@ -574,9 +581,8 @@ bool Brackets(const string& input)
                 else
                 {
                     return false;
-    
+
                 }
-                
             }
 
             else if(type == '}')
@@ -592,7 +598,6 @@ bool Brackets(const string& input)
                     return false;
 
                 }
-                
             }
 
             else if(type == ']')
@@ -608,7 +613,6 @@ bool Brackets(const string& input)
                     return false;
 
                 }
-                
             }
 
             else if(type == '>')
@@ -624,7 +628,6 @@ bool Brackets(const string& input)
                     return false;
 
                 }
-                
             }
             else
             {
@@ -633,14 +636,24 @@ bool Brackets(const string& input)
             }
         }
 
-        //Delete unused container.
-        delete bracket;
-        bracket = NULL;
+        if (bracket->size() != 0) // if not 0 means not balanced
+        {
+            //Delete unused container.
+            delete bracket;
+            bracket = NULL;
 
-        //Return answer.
-        return answer;
+            return false;
+        }
+        else
+        {
+            //Delete unused container.
+            delete bracket;
+            bracket = NULL;
+
+            //Return answer.
+            return answer;
+        }
     }
-
 }
 
 // Query machine, hits
