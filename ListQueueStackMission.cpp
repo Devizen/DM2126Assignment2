@@ -119,7 +119,6 @@ int LinkedList::pop_front()
 
     //Delete unused node.
     delete curr;
-    curr = NULL;
 
     return data;
 
@@ -157,7 +156,6 @@ int LinkedList::pop_back()
 
         //Delete unused Node.
         delete curr;
-        curr = NULL;
 
         //Assign the next Node of prev to be NULL.
         prev->next = NULL;
@@ -263,7 +261,6 @@ int LinkedList::pop_at(int pos)
 
         //Delete unused Node.
         delete curr;
-        curr = NULL;
 
         //Return data.
         return data;
@@ -395,7 +392,6 @@ int Queue::dequeue()
 
     //Delete unused node.
     delete curr;
-    curr = NULL;
 
     //Return data.
     return data;
@@ -492,7 +488,6 @@ int Stack::pop()
 
         //Delete unused Node.
         delete curr;
-        curr = NULL;
 
         //Return data.
         return data;
@@ -640,7 +635,7 @@ bool Brackets(const string& input)
         {
             //Delete unused container.
             delete bracket;
-            bracket = NULL;
+
 
             return false;
         }
@@ -648,7 +643,7 @@ bool Brackets(const string& input)
         {
             //Delete unused container.
             delete bracket;
-            bracket = NULL;
+
 
             //Return answer.
             return answer;
@@ -690,5 +685,5 @@ void QueryMachine(vector<int>& data, vector<int>& queries, vector<unsigned int>&
 
     //Delete unused container.
     delete container;
-    container = NULL;
+
 }
